@@ -6,13 +6,14 @@
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:57:57 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/22 13:58:13 by apimikov         ###   ########.fr       */
+/*   Updated: 2023/11/22 15:47:14 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	insert_args(const char *s, va_list *ap);
 int	call_function(const char s, va_list *ap);
@@ -37,14 +38,19 @@ int	insert_args(const char *s, va_list *ap)
 	{
 		if (*s != '%')
 		{
-			write(1, s, 1);
-			len++;
+//			printf("*s=%c\n", *s);
+			//remove stdio
+//			write(1, s, 1);
+			len +=ft_printchar((int)*s);
+//			len++;
 		}
 		else if (ft_strchr("cspdiuxX%", *(s + 1)))
 		{
 			len += call_function(*(s + 1), ap);
 			s++;
 		}
+		else
+			return (-1);
 		s++;
 	}
 	return (len);
@@ -66,11 +72,11 @@ int	call_function(const char type, va_list *ap)
 		return (ft_printbase(va_arg(*ap, int), "0123456789"));
 	else if (type == 'p')
 	{
-		write(1, "0x", 2);
-		return (ft_printbase_ulong((unsigned long long)va_arg(*ap, void *), \
-			"0123456789abcdef") + 2);
+//		write(1, "0x", 2);
+		return (write(1, "0x", 2) + ft_printbase_ulong((unsigned long long)va_arg(*ap, void *), \
+			"0123456789abcdef"));
 	}
 	else if (type == '%')
 		return (ft_printchar('%'));
-	return (0);
+	return (-1);
 }

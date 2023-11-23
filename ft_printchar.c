@@ -6,7 +6,7 @@
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 09:42:37 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/22 15:36:01 by apimikov         ###   ########.fr       */
+/*   Updated: 2023/11/23 09:17:03 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_printchar(char c)
 {
-	return(write(1, &c, 1));
+	return (write(1, &c, 1));
 }

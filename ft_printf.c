@@ -6,14 +6,13 @@
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:57:57 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/22 15:47:14 by apimikov         ###   ########.fr       */
+/*   Updated: 2023/11/23 09:19:12 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	insert_args(const char *s, va_list *ap);
 int	call_function(const char s, va_list *ap);
@@ -33,32 +32,25 @@ int	insert_args(const char *s, va_list *ap)
 {
 	int	len;
 	int	flag;
-//	long long min_llong;
 
 	len = 0;
-//	min_llong = -((long long)(((unsigned long long)(-1)) / 2)) - 1;
 	while (*s)
 	{
 		if (*s != '%')
 		{
-//			printf("*s=%c\n", *s);
-			//remove stdio
-//			write(1, s, 1);
-//			len++;	
-//			len +=ft_printchar((int)*s);
 			flag = ft_printchar((int)*s);
 			if (flag != 1)
 				return (-1);
 			len += flag;
-			
 		}
-		else if (ft_strchr("cspdiuxX%", *(s + 1)))
+		else if (ft_strchr("cspdiuxX%", *(++s)))
 		{
-			len += call_function(*(s + 1), ap);
-			s++;
+			flag = call_function(*s, ap);
+			if (flag == -1)
+				return (-1);
+			len += flag;
 		}
 		else
-	//		return (-min_llong);
 			return (-1);
 		s++;
 	}
@@ -80,11 +72,8 @@ int	call_function(const char type, va_list *ap)
 	else if (type == 'd' || type == 'i')
 		return (ft_printbase(va_arg(*ap, int), "0123456789"));
 	else if (type == 'p')
-	{
-//		write(1, "0x", 2);
-		return (write(1, "0x", 2) + ft_printbase_ulong((unsigned long long)va_arg(*ap, void *), \
+		return (ft_printbase_ulong((unsigned long long)va_arg(*ap, void *), \
 			"0123456789abcdef"));
-	}
 	else if (type == '%')
 		return (ft_printchar('%'));
 	return (-1);

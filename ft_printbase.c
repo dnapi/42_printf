@@ -6,10 +6,11 @@
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 08:50:00 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/22 15:47:11 by apimikov         ###   ########.fr       */
+/*   Updated: 2023/11/23 09:16:42 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "ft_printf.h"
 
 int	ft_printbase_pos(unsigned long nb, const char *str_base, \
@@ -20,7 +21,7 @@ int	ft_printbase(long nbr, const char *str_base)
 	long	base;
 	int		len;
 	long	nb;
-	int flag;
+	int		flag;
 
 	base = ft_strlen(str_base);
 	len = 0;
@@ -42,24 +43,22 @@ int	ft_printbase_pos(unsigned long nb, const char *str_base, \
 		long base, int *len)
 {
 	char	c;
-	int flag;
+	int		flag;
 
+	if (*len == -1)
+		return (-1);
 	if (nb > (unsigned long long)(base - 1))
 		ft_printbase_pos(nb / base, str_base, base, len);
+	if (*len == -1)
+		return (-1);
 	c = str_base[nb % base];
-//	write(1, &c, 1);
-//	(*len)++;
 	flag = write(1, &c, 1);
-	if (flag != 1)
+	if (flag == -1)
 	{
 		*len = -1;
 		return (*len);
 	}
 	*len += flag;
-//	if (write(1, &c, 1) == 1)
-//		(*len)++;
-//	else
-//		return (-1);
 	return (*len);
 }
 
@@ -70,6 +69,10 @@ int	ft_printbase_ulong(unsigned long long nb, const char *str_base)
 
 	base = (long)ft_strlen(str_base);
 	len = 0;
+	if (write(1, "0x", 2) != 2)
+		return (-1);
 	ft_printbase_pos(nb, str_base, base, &len);
-	return (len);
+	if (len == -1)
+		return (-1);
+	return (len + 2);
 }

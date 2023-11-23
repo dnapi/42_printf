@@ -8,6 +8,11 @@ int	main(void)
 	int len;
 	int len_ft;
 	char *s = "\x01\x02\a\v\f\r\n";
+	long long min_llong;
+
+	min_llong = - ((long long)(((unsigned long long)(-1))/2)) - 1;
+	printf("max_llong =%lld\n", min_llong);
+
 
     //printf("%f\n", average(3, 1, 2, 3));
     //printf("%f%d\n", average(3, 1, 2, 3),10,5,"ds");

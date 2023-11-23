@@ -20,12 +20,15 @@ int	ft_printbase(long nbr, const char *str_base)
 	long	base;
 	int		len;
 	long	nb;
+	int flag;
 
 	base = ft_strlen(str_base);
 	len = 0;
 	if (nbr < 0)
 	{
-		write(1, "-", 1);
+		flag = write(1, "-", 1);
+		if (flag != 1)
+			return (-1);
 		nb = -nbr;
 		len++;
 	}
@@ -39,13 +42,20 @@ int	ft_printbase_pos(unsigned long nb, const char *str_base, \
 		long base, int *len)
 {
 	char	c;
+	int flag;
 
 	if (nb > (unsigned long long)(base - 1))
 		ft_printbase_pos(nb / base, str_base, base, len);
 	c = str_base[nb % base];
 //	write(1, &c, 1);
 //	(*len)++;
-	*len += write(1, &c, 1);
+	flag = write(1, &c, 1);
+	if (flag != 1)
+	{
+		*len = -1;
+		return (*len);
+	}
+	*len += flag;
 //	if (write(1, &c, 1) == 1)
 //		(*len)++;
 //	else

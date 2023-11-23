@@ -32,8 +32,11 @@ int	ft_printf(const char *s, ...)
 int	insert_args(const char *s, va_list *ap)
 {
 	int	len;
+	int	flag;
+//	long long min_llong;
 
 	len = 0;
+//	min_llong = -((long long)(((unsigned long long)(-1)) / 2)) - 1;
 	while (*s)
 	{
 		if (*s != '%')
@@ -41,8 +44,13 @@ int	insert_args(const char *s, va_list *ap)
 //			printf("*s=%c\n", *s);
 			//remove stdio
 //			write(1, s, 1);
-			len +=ft_printchar((int)*s);
-//			len++;
+//			len++;	
+//			len +=ft_printchar((int)*s);
+			flag = ft_printchar((int)*s);
+			if (flag != 1)
+				return (-1);
+			len += flag;
+			
 		}
 		else if (ft_strchr("cspdiuxX%", *(s + 1)))
 		{
@@ -50,6 +58,7 @@ int	insert_args(const char *s, va_list *ap)
 			s++;
 		}
 		else
+	//		return (-min_llong);
 			return (-1);
 		s++;
 	}

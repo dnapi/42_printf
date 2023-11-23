@@ -18,11 +18,7 @@ int	ft_printstr(char *s)
 	int	len;
 
 	if (!s)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
+		return(write(1, "(null)", 6));
 	len = ft_strlen(s);
-	write(1, s, len);
-	return (len);
+	return(write(1, s, len));
 }

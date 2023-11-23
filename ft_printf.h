@@ -6,7 +6,7 @@
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:01:03 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/22 14:14:50 by apimikov         ###   ########.fr       */
+/*   Updated: 2023/11/23 10:54:14 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define FT_PRINTF_H
 
 # include <unistd.h>
-# include <stdarg.h>
-# include "ft_printf.h"
 
 int		ft_printf(const char *s, ...);
 char	*ft_strchr(const char *s, int c);

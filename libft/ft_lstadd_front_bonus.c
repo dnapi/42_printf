@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apimikov <apimikov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 09:40:28 by apimikov          #+#    #+#             */
-/*   Updated: 2023/11/23 09:21:42 by apimikov         ###   ########.fr       */
+/*   Created: 2023/11/13 12:10:47 by apimikov          #+#    #+#             */
+/*   Updated: 2023/11/13 12:10:51 by apimikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	size_t	count;
-
-	count = 0;
-	while (*s)
-	{
-		count++;
-		s++;
-	}
-	return (count);
+	if (!(*lst) && !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }
